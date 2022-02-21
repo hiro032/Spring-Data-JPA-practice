@@ -50,4 +50,13 @@ class MemberRepositoryTest {
         Member hi = memberRepository.findMemberByName("hi");
         assertThat(hi.getName()).isEqualTo("hi");
     }
+
+    @Test
+    void findMemberNameQueryAnnotation() {
+        Member member = new Member();
+        member.setName("hi");
+        memberRepository.save(member);
+        String hi = memberRepository.findMemberNameByName("hi");
+        assertThat(hi).isEqualTo("hi");
+    }
 }
