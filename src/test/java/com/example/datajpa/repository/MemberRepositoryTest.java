@@ -42,4 +42,12 @@ class MemberRepositoryTest {
         assertThat(memberRepository.findAll()).isEmpty();
     }
 
+    @Test
+    void findMemberByQueryAnnotation() {
+        Member member = new Member();
+        member.setName("hi");
+        memberRepository.save(member);
+        Member hi = memberRepository.findMemberByName("hi");
+        assertThat(hi.getName()).isEqualTo("hi");
+    }
 }
