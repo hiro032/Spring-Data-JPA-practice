@@ -17,4 +17,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query("select new com.example.datajpa.domain.dto.MemberDto(m.name, t.name)  from Member m join m.team t")
     List<MemberDto> findMemberDto();
+
+    boolean existsById(Long id);
 }

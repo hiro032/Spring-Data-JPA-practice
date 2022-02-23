@@ -79,4 +79,14 @@ class MemberRepositoryTest {
         List<MemberDto> memberDto = memberRepository.findMemberDto();
         assertThat(memberDto.get(0).getClass()).isEqualTo(MemberDto.class);
     }
+
+    @Test
+    void exists() {
+        Member m1 = new Member();
+        Member save = memberRepository.save(m1);
+
+        boolean existsById = memberRepository.existsById(save.getId());
+
+        assertThat(existsById).isTrue();
+    }
 }
