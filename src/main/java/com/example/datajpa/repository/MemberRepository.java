@@ -3,6 +3,7 @@ package com.example.datajpa.repository;
 import com.example.datajpa.domain.Member;
 import com.example.datajpa.domain.dto.MemberDto;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,4 +20,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     List<MemberDto> findMemberDto();
 
     boolean existsById(Long id);
+
+    List<Member> findListByName(String name);
+
+    Optional<Member> findOptionalByName(String name);
 }

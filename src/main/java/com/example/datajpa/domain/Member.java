@@ -1,5 +1,6 @@
 package com.example.datajpa.domain;
 
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,4 +22,22 @@ public class Member {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "team_id")
     private Team team;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Member member = (Member) o;
+        return Objects.equals(id, member.id) && Objects.equals(name, member.name)
+                && Objects.equals(team, member.team);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, team);
+    }
 }

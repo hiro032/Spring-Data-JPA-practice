@@ -89,4 +89,20 @@ class MemberRepositoryTest {
 
         assertThat(existsById).isTrue();
     }
+
+    @Test
+    void findListByName() {
+        Member m1 = new Member();
+        Member m2 = new Member();
+
+        m1.setName("member name");
+        m2.setName("member name");
+
+        Member saveM1 = memberRepository.save(m1);
+        Member saveM2 = memberRepository.save(m2);
+
+        List<Member> member_list = memberRepository.findListByName("member name");
+
+        assertThat(member_list).containsExactly(saveM1, saveM2);
+    }
 }
