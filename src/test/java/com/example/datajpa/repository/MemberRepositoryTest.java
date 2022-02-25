@@ -105,4 +105,15 @@ class MemberRepositoryTest {
 
         assertThat(member_list).containsExactly(saveM1, saveM2);
     }
+    
+    @Test
+    void findOptionalMember() {
+        Member m1 = new Member();
+        m1.setName("member name");
+        Member saveM1 = memberRepository.save(m1);
+
+        Member member_name = memberRepository.findOptionalByName("member name").orElseThrow(RuntimeException::new);
+        
+        assertThat(saveM1).isEqualTo(member_name);
+    }
 }
