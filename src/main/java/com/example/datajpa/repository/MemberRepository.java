@@ -16,6 +16,9 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("select m.name from Member m where m.name = :name")
     String findMemberNameByName(@Param("name") String name);
 
+    @Query("select m from Member m where m.name in :names")
+    List<Member> findByNames(@Param("names") List<String> names);
+
     @Query("select new com.example.datajpa.domain.dto.MemberDto(m.name, t.name)  from Member m join m.team t")
     List<MemberDto> findMemberDto();
 
@@ -24,4 +27,5 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     List<Member> findListByName(String name);
 
     Optional<Member> findOptionalByName(String name);
+
 }

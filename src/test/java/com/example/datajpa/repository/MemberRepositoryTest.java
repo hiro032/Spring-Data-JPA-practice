@@ -5,8 +5,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.example.datajpa.domain.Member;
 import com.example.datajpa.domain.Team;
 import com.example.datajpa.domain.dto.MemberDto;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -88,6 +90,23 @@ class MemberRepositoryTest {
         boolean existsById = memberRepository.existsById(save.getId());
 
         assertThat(existsById).isTrue();
+    }
+
+    @Test
+    @DisplayName("collection parameter binding")
+    void parameterBinding() {
+        Member m1 = new Member();
+        Member m2 = new Member();
+
+        m1.setName("AA");
+        m2.setName("BB");
+
+        Member saveM1 = memberRepository.save(m1);
+        Member saveM2 = memberRepository.save(m2);
+
+        List<Member> byNames = memberRepository.findByNames(Arrays.asList("AA", "BB"));
+
+        assertThat(byNames).containsExactly(saveM1, saveM2);
     }
 
     @Test
