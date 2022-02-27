@@ -7,9 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @Entity
 @Data
+@RequiredArgsConstructor
 public class Team {
 
     @Id
@@ -22,4 +24,7 @@ public class Team {
     @OneToMany(mappedBy = "team")
     private List<Member> member;
 
+    public Team(String name) {
+        this.name = name;
+    }
 }
