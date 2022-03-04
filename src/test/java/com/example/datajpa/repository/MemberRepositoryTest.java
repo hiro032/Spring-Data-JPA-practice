@@ -12,6 +12,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 class MemberRepositoryTest {
@@ -134,5 +135,23 @@ class MemberRepositoryTest {
         Member member_name = memberRepository.findOptionalByName("member name").orElseThrow(RuntimeException::new);
         
         assertThat(saveM1).isEqualTo(member_name);
+    }
+
+    @Test
+    @Transactional
+    void findMemberLazy() {
+        Team teamA = new Team("teamA");
+        Team teamB = new Team("teamB");
+
+        teamRepository.save(teamA);
+        teamRepository.save(teamB);
+
+        Member member1 = new Member("member1", teamA);
+        Member member2 = new Member("member2", teamB);
+
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+
+        List<Member> members = memberRepository.findAll();
     }
 }

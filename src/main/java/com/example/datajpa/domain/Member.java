@@ -21,9 +21,14 @@ public class Member {
     private Long id;
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private Team team;
+
+    public Member(String name, Team team) {
+        this.name = name;
+        this.team = team;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -38,8 +43,4 @@ public class Member {
                 && Objects.equals(team, member.team);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, team);
-    }
 }
